@@ -1,0 +1,58 @@
+<!DOCTYPE html{% block html_start %}{% endblock %}>
+<html lang="{{ app.request.locale }}">
+<head>
+    {% block head %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    {% endblock %}
+    <title>{% block title %}Adminschool lite | Connection{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('bundles/adminlte/adminlte.css') }}">
+    {% endblock %}
+</head>
+<body{% block body_start %}{% endblock %} class="hold-transition login-page">
+{% block after_body_start %}{% endblock %}
+{% block login_box %}
+    <div class="login-box">
+        <div class="login-logo">
+            {% block logo_login %}<b>Adminschool</b> lite{% endblock %}
+        </div>
+        <div class="login-box-body">
+            <div class="login-box-msg">
+                {% block login_box_error %}
+                    {% if error|default(false) %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                {% endblock %}
+            </div>
+
+                <form method="post">
+                    <div class="form-group has-feedback">
+                        <input type="text" name="email" class="form-control" placeholder="{{ 'Username'|trans({}, 'AdminLTEBundle') }}" value="{{ last_username|default('') }}">
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input name="password" type="password" class="form-control" placeholder="{{ 'Password'|trans({}, 'AdminLTEBundle') }}">
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="form-group">
+                        <input id="remember_me" name="_remember_me" type="checkbox">
+                        <label for="remember_me">{{ 'Remember Me'|trans({}, 'AdminLTEBundle') }}</label>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">{{ 'Sign In'|trans({}, 'AdminLTEBundle') }}</button>
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                </form>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/adminlte/adminlte.js') }}"></script>
+{% endblock %}
+
+</body>
+</html>
